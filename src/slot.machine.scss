@@ -1,3 +1,33 @@
-h1 {
-  color: blue;
+$margin: 20px;
+
+.slot-header {
+  border: 1px solid #000;
+  border-bottom: 0;
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  height: 20%;
+  display: -webkit-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.slot-main {
+  height: 50%;
+  border: 1px solid black;
+  .slot-bars {
+    margin: $margin;
+    height: calc(100% - #{$margin*2});
+  }
+}
+
+.slot-display {
+  height: 30%;
+  border: 1px solid black;
+  border-top: 0;
 }
