@@ -15,7 +15,7 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          'slot.machine.js'
+          'src/slot.machine.js'
         ]
       }
     },
@@ -26,7 +26,7 @@ module.exports = function (grunt) {
           sourcemap: 'none'
         },
         files: {
-          'slot.machine.css': 'slot.machine.scss'
+          'dist/slot.machine.css': 'src/slot.machine.scss'
         }
       },
       dist: {
@@ -35,14 +35,20 @@ module.exports = function (grunt) {
           sourcemap: 'none'
         },
         files: {
-          'slot.machine.min.css': 'slot.machine.scss'
+          'dist/slot.machine.min.css': 'src/slot.machine.scss'
         }
       }
+    },
+    copy: {
+      main: {
+        src: 'src/slot.machine.js',
+        dest: 'dist/slot.machine.js',
+      },
     },
     uglify: {
       dist: {
         files: {
-          'slot.machine.min.js': 'slot.machine.js'
+          'dist/slot.machine.min.js': 'src/slot.machine.js'
         }
       }
     }
@@ -51,6 +57,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'jshint:all',
     'sass',
+    'copy',
     'uglify'
   ]);
 };
