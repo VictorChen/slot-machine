@@ -3,22 +3,24 @@
 <head>
   <title>Slot Machine jQuery Plugin</title>
   <link rel="stylesheet" type="text/css" href="dist/slot.machine.min.css">
+  <link rel="stylesheet" type="text/css" href="demo.css">
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
   <script src="dist/slot.machine.min.js"></script>
-
-  <script type="text/javascript">
-    $(function () {
-      console.log('loaded');
-      $('#example1').slotMachine();
-    });
-  </script>
 </head>
 
 <body>
   <h1>Slot Machine jQuery Plugin Demo</h1>
 
-  <div id="example1"></div>
+  <hr>
 
+  <h2>Espresso Bar Slot Machine:</h2>
+  <div id="espresso"></div>
+
+  <script type="text/javascript">
+    $(function () {
+      $('#espresso').slotMachine();
+    });
+  </script>
 </body>
 </html>
