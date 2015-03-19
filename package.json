@@ -1,0 +1,26 @@
+{
+  "name": "slot-machine",
+  "author": {
+    "name": "Victor Chen",
+    "email": "chen_victor@ymail.com"
+  },
+  "version": "0.0.0",
+  "description": "jQuery plugin for creating slot machines.",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "jshint-stylish": "^1.0.1",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-sass": "^0.9.2",
+    "load-grunt-tasks": "^3.1.0",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-contrib-jshint": "^0.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VictorChen/slot-machine.git"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}
