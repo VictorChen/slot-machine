@@ -25,6 +25,7 @@
       this._adjustStyles();
       this._appendShaders();
       this._appendExtraSlots();
+      this._createLever();
     },
 
     _adjustStyles: function () {
@@ -49,25 +50,52 @@
       $slotBars.append($bottomShader);
     },
 
+    _createLever: function () {
+      var self = this;
+      var $slotMain = this.element.find('.slot-main');
+      var $lever = $('<div class="slot-lever"></div>');
+      var $leverTrack = $('<div class="slot-lever-track"></div>');
+      $slotMain.prepend($lever).prepend($leverTrack);
+
+      $lever.draggable({
+        axis: 'y',
+        containment: $slotMain,
+        revert: true,
+        stop: function (event, ui) {
+          $lever.css({
+            left: '',
+            top: ''
+          });
+
+          if ($slotMain.height() - ui.position.top < 50) {
+            self.spin();
+          }
+        }
+      });
+    },
+
     /**
      * We need to duplicate slots so we can use them for animation.
      */
     _appendExtraSlots: function () {
+      var self = this;
       this.element.find('.slot-bar').each(function () {
-        // Neat way to duplicate items
-        $(this).append($(this).children().clone());
+        for (var i=1; i<= self.options.numSlotsToShow; i=i*2) {
+          $(this).append($(this).children().clone());
+        }
         $(this).css('bottom', 0);
       });
     },
 
     spin: function () {
       var $slotBars = this.element.find('.slot-bar');
+      var self = this;
 
       $slotBars.each(function () {
         var $currentSlot = $(this);
         var animateFn = function (ease, count, duration, numRounds, goal) {
           $currentSlot.animate({
-            bottom: goal || 160
+            bottom: goal || $currentSlot.height()
           }, {
             easing: ease || 'linear',
             duration: duration || 200,
@@ -82,7 +110,7 @@
 
               if (count === numRounds) {
                 // Last round, randomize the stopping point!
-                animateFn('easeOutBounce', count + 1, 500, numRounds, 52);
+                animateFn('easeOutBounce', count + 1, 500, numRounds, Math.floor((Math.random() * self.options.numSlotsToShow)) * Math.floor($currentSlot.height()/self.options.numSlotsToShow));
               } else {
                 // Continue for another round
                 animateFn(null, count + 1, null, numRounds);

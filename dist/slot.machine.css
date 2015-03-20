@@ -38,6 +38,30 @@
   height: 50%;
   border: 1px solid black;
   background-color: #101842;
+  position: relative;
+  overflow: hidden;
+}
+
+.slot-machine .slot-lever {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  background-color: red;
+}
+.slot-machine .slot-lever:hover {
+  cursor: move;
+}
+
+.slot-machine .slot-lever-track {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 5px;
+  height: 100%;
+  background-color: black;
 }
 
 .slot-machine .slot-bars {
