@@ -7,6 +7,31 @@
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
   <script src="dist/slot.machine.min.js"></script>
+
+  <style type="text/css">
+    body {
+      padding: 50px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;  
+    }
+
+    .slot-box {
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+    }
+    .coffee-maker { background-image: url(img/coffee-maker.jpg); }
+    .teapot { background-image: url(img/teapot.jpg); }
+    .espresso-machine { background-image: url(img/espresso-machine.jpg); }
+    .coffee-filter { background-image: url(img/coffee-filter.jpg); }
+    .tea-strainer { background-image: url(img/tea-strainer.jpg); }
+    .espresso-tamper { background-image: url(img/espresso-tamper.jpg); }
+    .coffee-grounds { background-image: url(img/coffee-grounds.jpg); }
+    .loose-tea { background-image: url(img/loose-tea.jpg); }
+    .espresso-beans { background-image: url(img/espresso-beans.jpg); }
+  </style>
 </head>
 
 <body>
@@ -14,12 +39,37 @@
 
   <hr>
 
+  <!-- Example -->
   <h2>Espresso Bar Slot Machine:</h2>
-  <div id="espresso"></div>
+  <div id="espresso" class="slot-machine" style="height: 400px;">
+    <div class="slot-header">Slot Machine jQuery Plugin</div>
+    <div class="slot-main">
+      <div class="slot-bars">
+        <ul class="slot-bar">
+          <li class="slot-box coffee-maker"></li>
+          <li class="slot-box teapot"></li>
+          <li class="slot-box espresso-machine"></li>
+        </ul>
+        <ul class="slot-bar">
+          <li class="slot-box coffee-filter"></li>
+          <li class="slot-box tea-strainer"></li>
+          <li class="slot-box espresso-tamper"></li>
+        </ul>
+        <ul class="slot-bar">
+          <li class="slot-box coffee-grounds"></li>
+          <li class="slot-box loose-tea"></li>
+          <li class="slot-box espresso-beans"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="slot-footer"></div>
+  </div>
 
   <script type="text/javascript">
     $(function () {
-      $('#espresso').slotMachine();
+      $('#espresso').slotMachine({
+        numSlotsToShow: 3
+      });
     });
   </script>
 </body>

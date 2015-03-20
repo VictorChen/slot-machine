@@ -1,75 +1,106 @@
 ;(function ($) {
   'use strict';
 
-  // Boilerplate that all slot machines will need!
-  var template = '<div class="slot-header"></div>' +
-                 '<div class="slot-main">' +
-                   '<div class="slot-bars"></div>' +
-                 '</div>' +
-                 '<div class="slot-display"></div>';
-
   $.widget('custom.slotMachine', {
 
     // Default options
     options: {
-      title: 'Slot Machine jQuery Plugin',
-      items: [
-        ['coffee-maker', 'coffee-filter', 'coffee-grounds'],
-        ['teapot', 'tea-strainer', 'loose-tea'],
-        ['espresso-machine', 'espresso-tamper', 'espresso-beans']
-      ]
+      numSlotsToShow: 3
     },
 
     _create: function () {
-      // Perform basic validation
-      this._validateItems(this.options.items);
-      this._createSlotMachine();
+      if (this.options.numSlotsToShow % 2 === 0) {
+        // Must be an odd number, otherwise we don't have a "middle"
+        // row
+        throw 'slotMachine: numSlotsToShow must be an odd number';
+      }
+
+      this.numRows = this.element.find('.slot-bars').children().length;
+      this.numColumns = this.element.find('.slot-bar:nth-child(1) .slot-box').length;
+
+      if (this.numRows === 0 || this.numColumns === 0) {
+        throw 'slotMachine: missing slots';
+      }
+
+      this._adjustStyles();
+      this._appendShaders();
+      this._appendExtraSlots();
+    },
+
+    _adjustStyles: function () {
+      this.element.find('.slot-bar').css('width', 100/this.numColumns + '%');
+      this.element.find('.slot-box').css('height', 100/this.options.numSlotsToShow + '%');
     },
 
     /**
-     * Basic validate function to make sure that the user is
-     * using the slot machine correctly!
-     * @param  {[array]} items items in the slot machine
+     * Add top and bottom shaders so the middle row will stand
+     * out. The height of the shaders should be enough such that
+     * only one row will not be covered by them.
      */
-    _validateItems: function (items) {
-      if (!items.length) {
-        throw 'slotMachine: no items';
-      }
-      var numSlots = items[0].length;
-      for (var i=1; i<items.length; i++) {
-        if (items[i].length !== numSlots) {
-          throw 'slotMachine: items need to have the same length';
-        }
-      }
+    _appendShaders: function () {
+      var $slotBars = this.element.find('.slot-bars');
+      var $topShader = $('<div class="slot-top-shader"></div>');
+      var $bottomShader = $('<div class="slot-bottom-shader"></div>');
+      var factor = Math.floor(this.options.numSlotsToShow/2);
+      var heightPct = (100/this.options.numSlotsToShow) * factor;
+      $topShader.css('height', heightPct + '%');
+      $bottomShader.css('height', heightPct + '%');
+      $slotBars.prepend($topShader);
+      $slotBars.append($bottomShader);
     },
 
-    _createSlotMachine: function () {
-      // Create template
-      this.element.append(template);
+    /**
+     * We need to duplicate slots so we can use them for animation.
+     */
+    _appendExtraSlots: function () {
+      this.element.find('.slot-bar').each(function () {
+        // Neat way to duplicate items
+        $(this).append($(this).children().clone());
+        $(this).css('bottom', 0);
+      });
+    },
 
-      var $slotBars = this.element.find('.slot-bars');
-      var numColumns = this.options.items[0].length;
-      var numRows = this.options.items.length;
-      var $column, slotClass;
-      
+    spin: function () {
+      var $slotBars = this.element.find('.slot-bar');
 
-      this.element.find('.slot-header').append(this.options.title);
+      $slotBars.each(function () {
+        var $currentSlot = $(this);
+        var animateFn = function (ease, count, duration, numRounds, goal) {
+          $currentSlot.animate({
+            bottom: goal || 160
+          }, {
+            easing: ease || 'linear',
+            duration: duration || 200,
+            complete: function () {
+              if (count > numRounds) {
+                // We're done
+                return;
+              }
 
-      // Create the slot bars/boxes
-      for (var i=0; i<numColumns; i++) {
-        $column = $('<div class="slot-bar"></div>');
-        for (var j=0; j<numRows; j++) {
-          slotClass = this.options.items[j][i];
-          $column.append('<div class="slot-box ' + slotClass + '"></div>');
-        }
-        $slotBars.append($column);
-      }
+              // Completed a cycle, reset it back to 0
+              $(this).css('bottom', 0);
+
+              if (count === numRounds) {
+                // Last round, randomize the stopping point!
+                animateFn('easeOutBounce', count + 1, 500, numRounds, 52);
+              } else {
+                // Continue for another round
+                animateFn(null, count + 1, null, numRounds);
+              }
+            }
+          });
+        };
+
+        var numRounds = Math.floor(Math.random()*20 + 3);
+        animateFn(null, 0, null, numRounds);
+      });
     },
 
     /**
      * Done playing? Okay, let's destroy it!
      */
     destroy: function () {
+      // TODO: clean up!
       console.log('destroyed');
     }
   });
