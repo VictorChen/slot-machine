@@ -52,8 +52,9 @@ $margin: 20px;
   top: 5px;
   width: 30px;
   height: 30px;
-  border-radius: 50px;
+  border-radius: 100%;
   background-color: red;
+  background-image: -webkit-radial-gradient(50% 40%, closest-corner, #FFC2C2, #F00);
   &:hover {
     cursor: move;
   }
@@ -61,11 +62,12 @@ $margin: 20px;
 
 .slot-machine .slot-lever-track {
   position: absolute;
-  right: 20px;
+  right: 15px;
   top: 20px;
-  width: 5px;
+  width: 10px;
   height: 100%;
   background-color: black;
+  background-image: linear-gradient(to right, black 0%, white 50%, black 100%);
 }
 
 .slot-machine .slot-bars {
@@ -76,6 +78,7 @@ $margin: 20px;
   border: 2px solid black;
   position: relative;
   overflow: hidden;
+  background: -webkit-linear-gradient(top,#000 0%, #FFF 50%, #000 100%);
 }
 
 .slot-machine .slot-bar {
