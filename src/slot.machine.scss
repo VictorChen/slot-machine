@@ -7,6 +7,8 @@ $mainColor1: #000000;
 $mainColor2: #EBEBEB;
 $mainColor3: #FFFFFF;
 $mainColor4: #AA1111;
+$leverCenterColor: #FF3C3C;
+$leverOuterColor: #910000;
 
 
 .slot-machine {
@@ -65,12 +67,12 @@ $mainColor4: #AA1111;
   &:hover {
     cursor: move;
   }
-  background-image: -ms-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, $mainColor4 100%);
-  background-image: -moz-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, $mainColor4 100%);
-  background-image: -o-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, $mainColor4 100%);
-  background-image: -webkit-gradient(radial, center center, 0, center center, 504, color-stop(0, #FFC2C2), color-stop(1, $mainColor4));
-  background-image: -webkit-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, $mainColor4 100%);
-  background-image: radial-gradient(circle farthest-corner at center, #FFC2C2 0%, $mainColor4 100%);
+  background-image: -ms-radial-gradient(center, circle farthest-corner, $leverCenterColor 0%, $leverOuterColor 100%);
+  background-image: -moz-radial-gradient(center, circle farthest-corner, $leverCenterColor 0%, $leverOuterColor 100%);
+  background-image: -o-radial-gradient(center, circle farthest-corner, $leverCenterColor 0%, $leverOuterColor 100%);
+  background-image: -webkit-gradient(radial, center center, 0, center center, 504, color-stop(0, $leverCenterColor), color-stop(1, $leverOuterColor));
+  background-image: -webkit-radial-gradient(center, circle farthest-corner, $leverCenterColor 0%, $leverOuterColor 100%);
+  background-image: radial-gradient(circle farthest-corner at center, $leverCenterColor 0%, $leverOuterColor 100%);
 }
 
 .slot-machine .slot-lever-track {

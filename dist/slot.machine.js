@@ -16,8 +16,7 @@
 
     _create: function () {
       if (this.options.numSlotsToShow % 2 === 0) {
-        // Must be an odd number, otherwise we don't have a "middle"
-        // row
+        // Must be an odd number, otherwise we wont't have a "middle" row
         throw 'slotMachine: numSlotsToShow must be an odd number';
       }
 
@@ -35,7 +34,7 @@
       if (this.options.hasLever) {
         this._createLever();
       }
-      
+
       this._adjustStyles();
       this._appendExtraSlots();
     },

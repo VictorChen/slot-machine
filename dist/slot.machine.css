@@ -49,12 +49,12 @@
   height: 30px;
   border-radius: 100%;
   background-color: #AA1111;
-  background-image: -ms-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #AA1111 100%);
-  background-image: -moz-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #AA1111 100%);
-  background-image: -o-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #AA1111 100%);
-  background-image: -webkit-gradient(radial, center center, 0, center center, 504, color-stop(0, #FFC2C2), color-stop(1, #AA1111));
-  background-image: -webkit-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #AA1111 100%);
-  background-image: radial-gradient(circle farthest-corner at center, #FFC2C2 0%, #AA1111 100%);
+  background-image: -ms-radial-gradient(center, circle farthest-corner, #FF3C3C 0%, #910000 100%);
+  background-image: -moz-radial-gradient(center, circle farthest-corner, #FF3C3C 0%, #910000 100%);
+  background-image: -o-radial-gradient(center, circle farthest-corner, #FF3C3C 0%, #910000 100%);
+  background-image: -webkit-gradient(radial, center center, 0, center center, 504, color-stop(0, #FF3C3C), color-stop(1, #910000));
+  background-image: -webkit-radial-gradient(center, circle farthest-corner, #FF3C3C 0%, #910000 100%);
+  background-image: radial-gradient(circle farthest-corner at center, #FF3C3C 0%, #910000 100%);
 }
 .slot-machine .slot-lever:hover {
   cursor: move;
