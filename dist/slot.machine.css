@@ -78,6 +78,12 @@
   display: inline-block;
   height: 100%;
   position: relative;
+  vertical-align: bottom;
+}
+
+.slot-machine .slot-box {
+  text-align: center;
+  font-size: 12px;
 }
 
 .slot-machine .slot-footer {

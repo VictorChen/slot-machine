@@ -5,7 +5,13 @@
 
     // Default options
     options: {
-      numSlotsToShow: 3
+      numSlotsToShow: 3,
+      easeOutSpeed: 1000,
+      minRounds: 7,
+      slotDifferenceFactor: 5,
+      spinSpeed: 200,
+      hasShaders: true,
+      hasLever: true
     },
 
     _create: function () {
@@ -22,10 +28,16 @@
         throw 'slotMachine: missing slots';
       }
 
+      if (this.options.hasShaders) {
+        this._appendShaders();
+      }
+
+      if (this.options.hasLever) {
+        this._createLever();
+      }
+      
       this._adjustStyles();
-      this._appendShaders();
       this._appendExtraSlots();
-      this._createLever();
     },
 
     _adjustStyles: function () {
@@ -80,10 +92,11 @@
     _appendExtraSlots: function () {
       var self = this;
       this.element.find('.slot-bar').each(function () {
+        var $this = $(this);
         for (var i=1; i<= self.options.numSlotsToShow; i=i*2) {
-          $(this).append($(this).children().clone());
+          $this.append($this.children().clone());
         }
-        $(this).css('bottom', 0);
+        $this.css('bottom', 0);
       });
     },
 
@@ -91,14 +104,15 @@
       var $slotBars = this.element.find('.slot-bar');
       var self = this;
 
-      $slotBars.each(function () {
+      $slotBars.each(function (index) {
         var $currentSlot = $(this);
+        var slotSize = $currentSlot.height()/self.options.numSlotsToShow;
         var animateFn = function (ease, count, duration, numRounds, goal) {
           $currentSlot.animate({
-            bottom: goal || $currentSlot.height()
+            bottom: goal || Math.floor(slotSize*self.numRows)
           }, {
             easing: ease || 'linear',
-            duration: duration || 200,
+            duration: duration || self.options.spinSpeed,
             complete: function () {
               if (count > numRounds) {
                 // We're done
@@ -110,7 +124,10 @@
 
               if (count === numRounds) {
                 // Last round, randomize the stopping point!
-                animateFn('easeOutBounce', count + 1, 500, numRounds, Math.floor((Math.random() * self.options.numSlotsToShow)) * Math.floor($currentSlot.height()/self.options.numSlotsToShow));
+                var randomSlot = Math.floor(Math.random() * self.numRows);
+                var stopPoint = Math.floor(randomSlot * slotSize);
+                console.log(stopPoint);
+                animateFn('easeOutBounce', count + 1, 1000, numRounds, stopPoint);
               } else {
                 // Continue for another round
                 animateFn(null, count + 1, null, numRounds);
@@ -119,8 +136,7 @@
           });
         };
 
-        var numRounds = Math.floor(Math.random()*20 + 3);
-        animateFn(null, 0, null, numRounds);
+        animateFn(null, 0, null, (index * self.options.slotDifferenceFactor) + self.options.minRounds);
       });
     },
 
