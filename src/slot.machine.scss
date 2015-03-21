@@ -1,4 +1,8 @@
 $margin: 20px;
+$headerRadius: 200px;
+$headerHeight: 20%;
+$footerHeight: 30%;
+$mainHeight: 100% - $headerHeight - $footerHeight;
 
 .slot-machine {
   ul {
@@ -21,9 +25,9 @@ $margin: 20px;
 }
 
 .slot-machine .slot-header {
-  border-top-left-radius: 200px;
-  border-top-right-radius: 200px;
-  height: 20%;
+  border-top-left-radius: $headerRadius;
+  border-top-right-radius: $headerRadius;
+  height: $headerHeight;
   background-color: #ED86E4;
   display: -webkit-flexbox;
   display: -ms-flexbox;
@@ -37,7 +41,7 @@ $margin: 20px;
 }
 
 .slot-machine .slot-main {
-  height: 50%;
+  height: $mainHeight;
   background-color: #101842;
   position: relative;
   overflow: hidden;
@@ -51,10 +55,15 @@ $margin: 20px;
   height: 30px;
   border-radius: 100%;
   background-color: red;
-  background-image: -webkit-radial-gradient(50% 40%, closest-corner, #FFC2C2, #F00);
   &:hover {
     cursor: move;
   }
+  background-image: -ms-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
+  background-image: -moz-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
+  background-image: -o-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
+  background-image: -webkit-gradient(radial, center center, 0, center center, 504, color-stop(0, #FFC2C2), color-stop(1, #FF0000));
+  background-image: -webkit-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
+  background-image: radial-gradient(circle farthest-corner at center, #FFC2C2 0%, #FF0000 100%);
 }
 
 .slot-machine .slot-lever-track {
@@ -64,7 +73,12 @@ $margin: 20px;
   width: 10px;
   height: 100%;
   background-color: black;
-  background-image: linear-gradient(to right, black 0%, white 50%, black 100%);
+  background-image: -ms-linear-gradient(left, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -moz-linear-gradient(left, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -o-linear-gradient(left, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #000000), color-stop(0.5, #FFFFFF), color-stop(1, #000000));
+  background-image: -webkit-linear-gradient(left, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: linear-gradient(to right, #000000 0%, #FFFFFF 50%, #000000 100%);
 }
 
 .slot-machine .slot-bars {
@@ -75,7 +89,12 @@ $margin: 20px;
   border: 2px solid black;
   position: relative;
   overflow: hidden;
-  background: -webkit-linear-gradient(top,#000 0%, #FFF 50%, #000 100%);
+  background-image: -ms-linear-gradient(top, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -moz-linear-gradient(top, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -o-linear-gradient(top, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #000000), color-stop(0.5, #FFFFFF), color-stop(1, #000000));
+  background-image: -webkit-linear-gradient(top, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: linear-gradient(to bottom, #000000 0%, #FFFFFF 50%, #000000 100%);
 }
 
 .slot-machine .slot-bar {
@@ -91,6 +110,6 @@ $margin: 20px;
 }
 
 .slot-machine .slot-footer {
-  height: 30%;
+  height: $footerHeight;
   background-color: #220404;
 }

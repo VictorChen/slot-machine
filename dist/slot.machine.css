@@ -6,7 +6,7 @@
   position: absolute;
   width: 100%;
   background-color: black;
-  opacity: 0.4;
+  opacity: 0.6;
   z-index: 10;
 }
 .slot-machine .slot-top-shader {
@@ -47,7 +47,12 @@
   height: 30px;
   border-radius: 100%;
   background-color: red;
-  background-image: -webkit-radial-gradient(50% 40%, closest-corner, #FFC2C2, #F00);
+  background-image: -ms-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
+  background-image: -moz-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
+  background-image: -o-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
+  background-image: -webkit-gradient(radial, center center, 0, center center, 504, color-stop(0, #FFC2C2), color-stop(1, #FF0000));
+  background-image: -webkit-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
+  background-image: radial-gradient(circle farthest-corner at center, #FFC2C2 0%, #FF0000 100%);
 }
 .slot-machine .slot-lever:hover {
   cursor: move;
@@ -60,7 +65,12 @@
   width: 10px;
   height: 100%;
   background-color: black;
-  background-image: linear-gradient(to right, black 0%, white 50%, black 100%);
+  background-image: -ms-linear-gradient(left, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -moz-linear-gradient(left, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -o-linear-gradient(left, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #000000), color-stop(0.5, #FFFFFF), color-stop(1, #000000));
+  background-image: -webkit-linear-gradient(left, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: linear-gradient(to right, #000000 0%, #FFFFFF 50%, #000000 100%);
 }
 
 .slot-machine .slot-bars {
@@ -71,7 +81,12 @@
   border: 2px solid black;
   position: relative;
   overflow: hidden;
-  background: -webkit-linear-gradient(top, #000 0%, #FFF 50%, #000 100%);
+  background-image: -ms-linear-gradient(top, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -moz-linear-gradient(top, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -o-linear-gradient(top, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #000000), color-stop(0.5, #FFFFFF), color-stop(1, #000000));
+  background-image: -webkit-linear-gradient(top, #000000 0%, #FFFFFF 50%, #000000 100%);
+  background-image: linear-gradient(to bottom, #000000 0%, #FFFFFF 50%, #000000 100%);
 }
 
 .slot-machine .slot-bar {
