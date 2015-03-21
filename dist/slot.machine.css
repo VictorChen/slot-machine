@@ -17,10 +17,12 @@
 }
 
 .slot-machine .slot-header {
+  color: white;
+  font-weight: bold;
   border-top-left-radius: 200px;
   border-top-right-radius: 200px;
   height: 20%;
-  background-color: #ED86E4;
+  background-color: #AA1111;
   display: -webkit-flexbox;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -34,7 +36,7 @@
 
 .slot-machine .slot-main {
   height: 50%;
-  background-color: #101842;
+  background-color: #EBEBEB;
   position: relative;
   overflow: hidden;
 }
@@ -46,13 +48,13 @@
   width: 30px;
   height: 30px;
   border-radius: 100%;
-  background-color: red;
-  background-image: -ms-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
-  background-image: -moz-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
-  background-image: -o-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
-  background-image: -webkit-gradient(radial, center center, 0, center center, 504, color-stop(0, #FFC2C2), color-stop(1, #FF0000));
-  background-image: -webkit-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #FF0000 100%);
-  background-image: radial-gradient(circle farthest-corner at center, #FFC2C2 0%, #FF0000 100%);
+  background-color: #AA1111;
+  background-image: -ms-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #AA1111 100%);
+  background-image: -moz-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #AA1111 100%);
+  background-image: -o-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #AA1111 100%);
+  background-image: -webkit-gradient(radial, center center, 0, center center, 504, color-stop(0, #FFC2C2), color-stop(1, #AA1111));
+  background-image: -webkit-radial-gradient(center, circle farthest-corner, #FFC2C2 0%, #AA1111 100%);
+  background-image: radial-gradient(circle farthest-corner at center, #FFC2C2 0%, #AA1111 100%);
 }
 .slot-machine .slot-lever:hover {
   cursor: move;
@@ -103,5 +105,5 @@
 
 .slot-machine .slot-footer {
   height: 30%;
-  background-color: #220404;
+  background-color: #AA1111;
 }
