@@ -9,15 +9,6 @@
   <script src="src/slot.machine.js"></script>
 
   <style type="text/css">
-    body {
-      padding: 50px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      text-align: center;  
-    }
-
     .slot-box {
       background-size: 100% 100%;
       background-repeat: no-repeat;
@@ -35,14 +26,14 @@
 </head>
 
 <body>
+<span id="forkongithub"><a href="https://github.com/VictorChen/slot-machine">Fork me on GitHub</a></span>
   <h1>Slot Machine jQuery Plugin Demo</h1>
 
   <hr>
 
-  <!-- Example -->
-  <h2>Espresso Bar Slot Machine:</h2>
-  <div id="espresso" class="slot-machine" style="height: 400px;">
-    <div class="slot-header">Basic Slot Machine</div>
+  <h2>Simple Slot Machine:</h2>
+  <div id="simple" class="slot-machine" style="width: 400px; height: 400px;">
+    <div class="slot-header">Slot Machine</div>
     <div class="slot-main">
       <div class="slot-bars">
         <ul class="slot-bar">
@@ -62,12 +53,121 @@
         </ul>
       </div>
     </div>
-    <div class="slot-footer"></div>
+    <div class="slot-footer">$('#simple').slotMachine();</div>
+  </div>
+
+  <hr>
+
+  <h2>Fully Responsive - Resize it any way you want!</h2>
+  <div id="responsive" style="width: 100vh; height: 100vh;" class="slot-machine">
+    <div class="slot-header">Slot Machine</div>
+    <div class="slot-main">
+      <div class="slot-bars">
+        <ul class="slot-bar">
+          <li class="slot-box coffee-maker">Coffee Maker</li>
+          <li class="slot-box teapot">Teapot</li>
+          <li class="slot-box espresso-machine">Espresso Machine</li>
+        </ul>
+        <ul class="slot-bar">
+          <li class="slot-box coffee-filter">Coffee Filter</li>
+          <li class="slot-box tea-strainer">Tea Strainer</li>
+          <li class="slot-box espresso-tamper">Espresso Tamper</li>
+        </ul>
+        <ul class="slot-bar">
+          <li class="slot-box coffee-grounds">Coffee Grounds</li>
+          <li class="slot-box loose-tea">Loose Tea</li>
+          <li class="slot-box espresso-beans">Espresso Beans</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slot-footer">$('#responsive').slotMachine();</div>
+  </div>
+
+  <hr>
+
+  <h2>Customize It</h2>
+  <div id="customize" style="width: 400px; height: 400px;" class="slot-machine">
+    <div class="slot-header">Slot Machine</div>
+    <div class="slot-main">
+      <div class="slot-bars">
+        <ul class="slot-bar">
+          <li class="slot-box coffee-maker">Coffee Maker</li>
+          <li class="slot-box teapot">Teapot</li>
+          <li class="slot-box espresso-machine">Espresso Machine</li>
+        </ul>
+        <ul class="slot-bar">
+          <li class="slot-box coffee-filter">Coffee Filter</li>
+          <li class="slot-box tea-strainer">Tea Strainer</li>
+          <li class="slot-box espresso-tamper">Espresso Tamper</li>
+        </ul>
+        <ul class="slot-bar">
+          <li class="slot-box coffee-grounds">Coffee Grounds</li>
+          <li class="slot-box loose-tea">Loose Tea</li>
+          <li class="slot-box espresso-beans">Espresso Beans</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slot-footer">
+      <pre>
+        $('#customize').slotMachine({
+          numSlotsToShow: 1,
+          spinSpeed: 2000,
+          easeOutSpeed: 2000,
+          minRounds: 2
+        });
+      </pre>
+    </div>
+  </div>
+
+  <br>
+
+  <div id="more" style="width: 100vh; height: 100vh;" class="slot-machine">
+    <div class="slot-header">Slot Machine</div>
+    <div class="slot-main">
+      <div class="slot-bars">
+        <ul class="slot-bar">
+          <li class="slot-box coffee-maker">Coffee Maker</li>
+          <li class="slot-box teapot">Teapot</li>
+          <li class="slot-box espresso-machine">Espresso Machine</li>
+        </ul>
+        <ul class="slot-bar">
+          <li class="slot-box coffee-filter">Coffee Filter</li>
+          <li class="slot-box tea-strainer">Tea Strainer</li>
+          <li class="slot-box espresso-tamper">Espresso Tamper</li>
+        </ul>
+        <ul class="slot-bar">
+          <li class="slot-box coffee-grounds">Coffee Grounds</li>
+          <li class="slot-box loose-tea">Loose Tea</li>
+          <li class="slot-box espresso-beans">Espresso Beans</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slot-footer">
+      <pre>
+        $('#more').slotMachine({
+          numSlotsToShow: 7,
+          slotDifferenceFactor: 1
+        });
+      </pre>
+    </div>
   </div>
 
   <script type="text/javascript">
     $(function () {
-      $('#espresso').slotMachine();
+      $('#simple').slotMachine();
+      $('#responsive').slotMachine();
+      
+      $('#customize').slotMachine({
+        numSlotsToShow: 1,
+        spinSpeed: 2000,
+        easeOutSpeed: 2000,
+        minRounds: 2
+      });
+
+      $('#more').slotMachine({
+        numSlotsToShow: 7,
+        slotDifferenceFactor: 1
+      });
     });
   </script>
 

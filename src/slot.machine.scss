@@ -32,11 +32,13 @@ $leverOuterColor: #910000;
 }
 
 .slot-machine .slot-header {
-  color: white;
-  font-weight: bold;
   border-top-left-radius: $headerRadius;
   border-top-right-radius: $headerRadius;
   height: $headerHeight;
+}
+
+.slot-machine .slot-header, .slot-machine .slot-footer {
+  color: $mainColor3;
   background-color: $mainColor4;
   display: -webkit-flexbox;
   display: -ms-flexbox;
@@ -120,5 +122,4 @@ $leverOuterColor: #910000;
 
 .slot-machine .slot-footer {
   height: $footerHeight;
-  background-color: $mainColor4;
 }

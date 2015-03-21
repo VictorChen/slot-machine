@@ -17,11 +17,13 @@
 }
 
 .slot-machine .slot-header {
-  color: white;
-  font-weight: bold;
   border-top-left-radius: 200px;
   border-top-right-radius: 200px;
   height: 20%;
+}
+
+.slot-machine .slot-header, .slot-machine .slot-footer {
+  color: #FFFFFF;
   background-color: #AA1111;
   display: -webkit-flexbox;
   display: -ms-flexbox;
@@ -105,5 +107,4 @@
 
 .slot-machine .slot-footer {
   height: 30%;
-  background-color: #AA1111;
 }
