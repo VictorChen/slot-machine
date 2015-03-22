@@ -154,7 +154,7 @@
 
       // Amount of slots to rotate back.
       var offset = Math.floor(self.options.numSlotsToShow / 2);
-      stopPoint -= offset * slotSize;
+      stopPoint -= Math.floor(offset * slotSize);
 
       return {
         index: randomSlot,
