@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Slot Machine jQuery Plugin</title>
+  <title>Slot Machine jQuery Widget</title>
   <link rel="stylesheet" type="text/css" href="dist/slot.machine.css">
   <link rel="stylesheet" type="text/css" href="demo.css">
   <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -27,7 +27,7 @@
 
 <body>
 <span id="forkongithub"><a href="https://github.com/VictorChen/slot-machine">Fork me on GitHub</a></span>
-  <h1>Slot Machine jQuery Plugin Demo</h1>
+  <h1>Slot Machine jQuery Widget</h1>
 
   <hr>
 
@@ -146,7 +146,71 @@
       <pre>
         $('#more').slotMachine({
           numSlotsToShow: 7,
-          slotDifferenceFactor: 1
+          slotDifferenceFactor: 1,
+          leverThreshold: 1
+        });
+      </pre>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>Supports as many reels as you want!</h2>
+  <div id="massive" style="width: 100vh; height: 100vh;" class="slot-machine">
+    <div class="slot-header">Slot Machine</div>
+    <div class="slot-main">
+      <div class="slot-reels">
+        <ul class="slot-reel">
+          <li class="slot-box coffee-maker">Coffee Maker</li>
+          <li class="slot-box teapot">Teapot</li>
+          <li class="slot-box espresso-machine">Espresso Machine</li>
+        </ul>
+        <ul class="slot-reel">
+          <li class="slot-box coffee-filter">Coffee Filter</li>
+          <li class="slot-box tea-strainer">Tea Strainer</li>
+          <li class="slot-box espresso-tamper">Espresso Tamper</li>
+        </ul>
+        <ul class="slot-reel">
+          <li class="slot-box coffee-grounds">Coffee Grounds</li>
+          <li class="slot-box loose-tea">Loose Tea</li>
+          <li class="slot-box espresso-beans">Espresso Beans</li>
+        </ul>
+        <ul class="slot-reel">
+          <li class="slot-box coffee-maker">Coffee Maker</li>
+          <li class="slot-box teapot">Teapot</li>
+          <li class="slot-box espresso-machine">Espresso Machine</li>
+        </ul>
+        <ul class="slot-reel">
+          <li class="slot-box coffee-filter">Coffee Filter</li>
+          <li class="slot-box tea-strainer">Tea Strainer</li>
+          <li class="slot-box espresso-tamper">Espresso Tamper</li>
+        </ul>
+        <ul class="slot-reel">
+          <li class="slot-box coffee-grounds">Coffee Grounds</li>
+          <li class="slot-box loose-tea">Loose Tea</li>
+          <li class="slot-box espresso-beans">Espresso Beans</li>
+        </ul>
+        <ul class="slot-reel">
+          <li class="slot-box coffee-maker">Coffee Maker</li>
+          <li class="slot-box teapot">Teapot</li>
+          <li class="slot-box espresso-machine">Espresso Machine</li>
+        </ul>
+        <ul class="slot-reel">
+          <li class="slot-box coffee-filter">Coffee Filter</li>
+          <li class="slot-box tea-strainer">Tea Strainer</li>
+          <li class="slot-box espresso-tamper">Espresso Tamper</li>
+        </ul>
+        <ul class="slot-reel">
+          <li class="slot-box coffee-grounds">Coffee Grounds</li>
+          <li class="slot-box loose-tea">Loose Tea</li>
+          <li class="slot-box espresso-beans">Espresso Beans</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slot-footer">
+      <pre>
+        $('#massive').slotMachine({
+          numSlotsToShow: 7
         });
       </pre>
     </div>
@@ -154,7 +218,10 @@
 
   <script type="text/javascript">
     $(function () {
-      $('#simple').slotMachine();
+      $('#simple').slotMachine({
+        spinSpeed: 0
+      });
+
       $('#responsive').slotMachine();
       
       $('#customize').slotMachine({
@@ -165,9 +232,36 @@
       });
 
       $('#more').slotMachine({
-        numSlotsToShow: 7,
+        numSlotsToShow: 5,
         slotDifferenceFactor: 1,
         leverThreshold: 1
+      });
+
+      $('#massive').slotMachine({
+        numSlotsToShow: 7
+      });
+
+      $('.slot-machine').on('slotmachine:spin', function () {
+        // $(this).effect('pulsate');
+      });
+
+      $('.slot-machine').on('slotmachine:lose', function () {
+        $(this).effect('shake');
+      });
+
+      $('.slot-machine').on('slotmachine:win', function (event, slotIndex) {
+        switch (slotIndex % 3) {
+          case 0:
+              console.log('coffee')
+              break;
+          case 1:
+              console.log('tea')
+              break;
+          default:
+              console.log('espresso')
+              break;
+      }
+        $(this).effect('highlight');
       });
     });
   </script>

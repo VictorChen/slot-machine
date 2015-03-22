@@ -128,7 +128,7 @@
      */
     _makeResponsive: function () {
       // Add width % so all the reels will have the same width
-      this.$slotReel.css('width', 100/this.numReels + '%');
+      this.$slotReel.css('width', 100/this.numRows + '%');
 
       // Set the height of each slot
       var slotHeightPct = 100/this.options.numSlotsToShow + '%';
@@ -138,14 +138,28 @@
     /**
      * During the last round of the spin, we need to randomize the
      * slot that the reel will stop in.
-     * @param  {[number]} numRows number of rows
+     * @param  {[number]} self this
      * @param  {[number]} slotSize height of a slot
-     * @return {[number]} the 'bottom' postion of the reel
+     * @return {[object]} random index and bottom position
      */
-    _getRandomSlot: function (numRows, slotSize) {
-      var randomSlot = Math.floor(Math.random() * numRows);
+    _getRandomSlot: function (self, slotSize) {
+      // Get a random slot index
+      var randomSlot = Math.floor(Math.random() * self.numRows);
+
+      // Calculate the position of the index in terms of pixels
       var stopPoint = Math.floor(randomSlot * slotSize);
-      return stopPoint;
+
+      // Go forward one round
+      stopPoint += Math.floor(slotSize * self.numRows);
+
+      // Amount of slots to rotate back.
+      var offset = Math.floor(self.options.numSlotsToShow / 2);
+      stopPoint -= offset * slotSize;
+
+      return {
+        index: randomSlot,
+        bottom: stopPoint
+      };
     },
 
     /**
@@ -156,11 +170,14 @@
      * @param  {[number]} lastSlot 'bottom' position of the reel of the last slot
      * @param  {[number]} count current round
      * @param  {[number]} numRounds number of rounds to spin
+     * @param  {[object]} promise resolves when the animation is complete
      */
-    _spinAnimation: function (self, $reel, slotSize, lastSlot, count, numRounds) {
+    _spinAnimation: function (self, $reel, slotSize, lastSlot, count, numRounds, promise) {
       var isLastSpin = count >= numRounds;
+      var randomSlot = isLastSpin? self._getRandomSlot(self, slotSize) : null;
+
       $reel.animate({
-        bottom: isLastSpin? self._getRandomSlot(self.numRows, slotSize) : lastSlot
+        bottom: (randomSlot && randomSlot.bottom) || lastSlot
       }, {
         easing: isLastSpin? 'easeOutBounce' : 'linear',
         duration: isLastSpin? self.options.easeOutSpeed : self.options.spinSpeed,
@@ -170,7 +187,9 @@
             $(this).css('bottom', 0);
 
             // Continue for another round
-            self._spinAnimation(self, $reel, slotSize, lastSlot, count + 1, numRounds);
+            self._spinAnimation(self, $reel, slotSize, lastSlot, count + 1, numRounds, promise);
+          } else {
+            promise.resolve(randomSlot.index);
           }
         }
       });
@@ -182,24 +201,55 @@
     spin: function () {
       var self = this;
 
+      // Fire an event before starting
+      this._trigger(':spin');
+
       // Calculate the height of a slot
       var slotSize = this.$slotReel.eq(0).height() / self.options.numSlotsToShow;
       var lastSlot = Math.floor(slotSize * self.numRows);
+
+      // Keep track of when all the reels are done spinning
+      var spinPromises = [];
 
       this.$slotReel.each(function (index) {
         // Number of rounds before the reel should stop. We need to ensure that
         // the first reel will finish before the next reel and so on.
         var numRounds = (index * self.options.slotDifferenceFactor) + self.options.minRounds;
 
+        // Promise to keep track of when the asynchronous animation is done
+        var promise = $.Deferred();
+        spinPromises.push(promise);
+
         // Spin each reel
-        self._spinAnimation(self, $(this), slotSize, lastSlot, 0, numRounds);
+        self._spinAnimation(self, $(this), slotSize, lastSlot, 0, numRounds, promise);
       });
+
+      // All done!
+      $.when.apply($, spinPromises).done(self._processResults.bind(self));
+    },
+
+    /**
+     * Determine whether or not the slots line up. Trigger win/lose
+     * events depending on the result.
+     */
+    _processResults: function () {
+      for (var i=1; i<arguments.length; i++) {
+        if (arguments[i] !== arguments[0]) {
+          // Convert arguments into an actual array
+          // Trigger the lose event
+          this._trigger(':lose', null, [$.makeArray(arguments)]);
+          return;
+        }
+      }
+
+      // Trigger the win event with the slot index
+      this._trigger(':win', null, [arguments[0]]);
     },
 
     /**
      * Remove everything that was added
      */
-    destroy: function () {
+    _destroy: function () {
       // Remove shaders
       if (this.options.hasShaders) {
         this.$topShader.remove();
