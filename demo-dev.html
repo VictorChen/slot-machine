@@ -22,7 +22,14 @@
     .coffee-grounds { background-image: url(img/coffee-grounds.png); }
     .loose-tea { background-image: url(img/loose-tea.png); }
     .espresso-beans { background-image: url(img/espresso-beans.png); }
-    
+
+    .color1 { background-color: red; }
+    .color2 { background-color: orange; }
+    .color3 { background-color: yellow; }
+    .color4 { background-color: green; }
+    .color5 { background-color: blue; }
+    .color6 { background-color: purple; }
+
     .win-coffee { background-image: url(img/win-coffee.jpg); }
     .win-tea { background-image: url(img/win-tea.jpg); }
     .win-espresso { background-image: url(img/win-espresso.jpg); }
@@ -161,61 +168,73 @@
   <hr>
 
   <h2>Supports as many reels as you want!</h2>
-  <div id="massive" style="width: 100vh; height: 100vh;" class="slot-machine">
+  <div id="massive" style="width: 560px; height: 560px;" class="slot-machine">
     <div class="slot-header">Slot Machine</div>
     <div class="slot-main">
       <div class="slot-reels">
         <ul class="slot-reel">
-          <li class="slot-box coffee-maker">Coffee Maker</li>
-          <li class="slot-box teapot">Teapot</li>
-          <li class="slot-box espresso-machine">Espresso Machine</li>
+          <li class="slot-box color1"></li>
+          <li class="slot-box color2"></li>
+          <li class="slot-box color3"></li>
+          <li class="slot-box color4"></li>
+          <li class="slot-box color5"></li>
+          <li class="slot-box color6"></li>
         </ul>
         <ul class="slot-reel">
-          <li class="slot-box coffee-filter">Coffee Filter</li>
-          <li class="slot-box tea-strainer">Tea Strainer</li>
-          <li class="slot-box espresso-tamper">Espresso Tamper</li>
+          <li class="slot-box color1"></li>
+          <li class="slot-box color2"></li>
+          <li class="slot-box color3"></li>
+          <li class="slot-box color4"></li>
+          <li class="slot-box color5"></li>
+          <li class="slot-box color6"></li>
         </ul>
         <ul class="slot-reel">
-          <li class="slot-box coffee-grounds">Coffee Grounds</li>
-          <li class="slot-box loose-tea">Loose Tea</li>
-          <li class="slot-box espresso-beans">Espresso Beans</li>
+          <li class="slot-box color1"></li>
+          <li class="slot-box color2"></li>
+          <li class="slot-box color3"></li>
+          <li class="slot-box color4"></li>
+          <li class="slot-box color5"></li>
+          <li class="slot-box color6"></li>
         </ul>
         <ul class="slot-reel">
-          <li class="slot-box coffee-maker">Coffee Maker</li>
-          <li class="slot-box teapot">Teapot</li>
-          <li class="slot-box espresso-machine">Espresso Machine</li>
+          <li class="slot-box color1"></li>
+          <li class="slot-box color2"></li>
+          <li class="slot-box color3"></li>
+          <li class="slot-box color4"></li>
+          <li class="slot-box color5"></li>
+          <li class="slot-box color6"></li>
         </ul>
         <ul class="slot-reel">
-          <li class="slot-box coffee-filter">Coffee Filter</li>
-          <li class="slot-box tea-strainer">Tea Strainer</li>
-          <li class="slot-box espresso-tamper">Espresso Tamper</li>
+          <li class="slot-box color1"></li>
+          <li class="slot-box color2"></li>
+          <li class="slot-box color3"></li>
+          <li class="slot-box color4"></li>
+          <li class="slot-box color5"></li>
+          <li class="slot-box color6"></li>
         </ul>
         <ul class="slot-reel">
-          <li class="slot-box coffee-grounds">Coffee Grounds</li>
-          <li class="slot-box loose-tea">Loose Tea</li>
-          <li class="slot-box espresso-beans">Espresso Beans</li>
+          <li class="slot-box color1"></li>
+          <li class="slot-box color2"></li>
+          <li class="slot-box color3"></li>
+          <li class="slot-box color4"></li>
+          <li class="slot-box color5"></li>
+          <li class="slot-box color6"></li>
         </ul>
         <ul class="slot-reel">
-          <li class="slot-box coffee-maker">Coffee Maker</li>
-          <li class="slot-box teapot">Teapot</li>
-          <li class="slot-box espresso-machine">Espresso Machine</li>
-        </ul>
-        <ul class="slot-reel">
-          <li class="slot-box coffee-filter">Coffee Filter</li>
-          <li class="slot-box tea-strainer">Tea Strainer</li>
-          <li class="slot-box espresso-tamper">Espresso Tamper</li>
-        </ul>
-        <ul class="slot-reel">
-          <li class="slot-box coffee-grounds">Coffee Grounds</li>
-          <li class="slot-box loose-tea">Loose Tea</li>
-          <li class="slot-box espresso-beans">Espresso Beans</li>
+          <li class="slot-box color1"></li>
+          <li class="slot-box color2"></li>
+          <li class="slot-box color3"></li>
+          <li class="slot-box color4"></li>
+          <li class="slot-box color5"></li>
+          <li class="slot-box color6"></li>
         </ul>
       </div>
     </div>
     <div class="slot-footer">
       <pre>
         $('#massive').slotMachine({
-          numSlotsToShow: 7
+          numSlotsToShow: 7,
+          hasShaders: false
         });
       </pre>
     </div>
@@ -241,7 +260,8 @@
       });
 
       $('#massive').slotMachine({
-        numSlotsToShow: 7
+        numSlotsToShow: 7,
+        hasShaders: false
       });
 
       $('.slot-machine').on('slotmachine:spin', function () {
