@@ -22,6 +22,10 @@
     .coffee-grounds { background-image: url(img/coffee-grounds.png); }
     .loose-tea { background-image: url(img/loose-tea.png); }
     .espresso-beans { background-image: url(img/espresso-beans.png); }
+    
+    .win-coffee { background-image: url(img/win-coffee.jpg); }
+    .win-tea { background-image: url(img/win-tea.jpg); }
+    .win-espresso { background-image: url(img/win-espresso.jpg); }
   </style>
 </head>
 
@@ -242,7 +246,7 @@
       });
 
       $('.slot-machine').on('slotmachine:spin', function () {
-        // $(this).effect('pulsate');
+        $('body').removeClass('win-coffee win-tea win-espresso');
       });
 
       $('.slot-machine').on('slotmachine:lose', function () {
@@ -252,16 +256,15 @@
       $('.slot-machine').on('slotmachine:win', function (event, slotIndex) {
         switch (slotIndex % 3) {
           case 0:
-              console.log('coffee')
+              $('body').addClass('win-coffee');
               break;
           case 1:
-              console.log('tea')
+              $('body').addClass('win-tea');
               break;
           default:
-              console.log('espresso')
+              $('body').addClass('win-espresso');
               break;
-      }
-        $(this).effect('highlight');
+        }
       });
     });
   </script>
