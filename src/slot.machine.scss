@@ -77,10 +77,17 @@ $leverOuterColor: #910000;
   background-image: radial-gradient(circle farthest-corner at center, $leverCenterColor 0%, $leverOuterColor 100%);
 }
 
+.slot-machine .slot-lever-track:before {
+  content: '';
+  width: 100%;
+  height: 20px;
+  background-color: $mainColor2;
+  position: absolute;
+}
+
 .slot-machine .slot-lever-track {
   position: absolute;
   right: 15px;
-  top: 20px;
   width: 10px;
   height: 100%;
   background-color: black;
@@ -92,7 +99,7 @@ $leverOuterColor: #910000;
   background-image: linear-gradient(to right, #000000 0%, #FFFFFF 50%, #000000 100%);
 }
 
-.slot-machine .slot-bars {
+.slot-machine .slot-reels {
   margin: $margin;
   height: calc(100% - #{$margin*2});
   margin-right: 40px;
@@ -108,7 +115,7 @@ $leverOuterColor: #910000;
   background-image: linear-gradient(to bottom, #000000 0%, #FFFFFF 50%, #000000 100%);
 }
 
-.slot-machine .slot-bar {
+.slot-machine .slot-reel {
   display: inline-block;
   height: 100%;
   position: relative;

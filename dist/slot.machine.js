@@ -11,7 +11,7 @@
       slotDifferenceFactor: 5,
       spinSpeed: 200,
       hasShaders: true,
-      hasLever: true
+      leverThreshold: 0.7
     },
 
     _create: function () {
@@ -20,65 +20,77 @@
         throw 'slotMachine: numSlotsToShow must be an odd number';
       }
 
-      this.numRows = this.element.find('.slot-bars').children().length;
-      this.numColumns = this.element.find('.slot-bar:nth-child(1) .slot-box').length;
-
-      if (this.numRows === 0 || this.numColumns === 0) {
-        throw 'slotMachine: missing slots';
-      }
+      // Cache these since we will use them later
+      this.$slotReels = this.element.find('.slot-reels');
+      this.$slotReel = this.$slotReels.children();
+      this.numRows = this.$slotReel.length;
+      this.numReels = this.$slotReel.eq(0).children().length;
 
       if (this.options.hasShaders) {
         this._appendShaders();
       }
 
-      if (this.options.hasLever) {
-        this._createLever();
-      }
-
-      this._adjustStyles();
+      this._createLever();
       this._appendExtraSlots();
-    },
-
-    _adjustStyles: function () {
-      this.element.find('.slot-bar').css('width', 100/this.numColumns + '%');
-      this.element.find('.slot-box').css('height', 100/this.options.numSlotsToShow + '%');
+      this._makeResponsive();
     },
 
     /**
-     * Add top and bottom shaders so the middle row will stand
-     * out. The height of the shaders should be enough such that
-     * only one row will not be covered by them.
+     * Add the top and bottom shaders so the middle row will stand
+     * out.
      */
     _appendShaders: function () {
-      var $slotBars = this.element.find('.slot-bars');
-      var $topShader = $('<div class="slot-top-shader"></div>');
-      var $bottomShader = $('<div class="slot-bottom-shader"></div>');
+      // Calculate the height in percentage of the shaders so only
+      // one row will not be covered.
       var factor = Math.floor(this.options.numSlotsToShow/2);
       var heightPct = (100/this.options.numSlotsToShow) * factor;
-      $topShader.css('height', heightPct + '%');
-      $bottomShader.css('height', heightPct + '%');
-      $slotBars.prepend($topShader);
-      $slotBars.append($bottomShader);
+
+      // Create the shaders
+      this.$topShader = $('<div class="slot-top-shader"></div>');
+      this.$bottomShader = $('<div class="slot-bottom-shader"></div>');
+
+      // Set the calculated height
+      this.$topShader.css('height', heightPct + '%');
+      this.$bottomShader.css('height', heightPct + '%');
+
+      // Add them to our slot machine!
+      this.$slotReels.prepend(this.$topShader).append(this.$bottomShader);
     },
 
+    /**
+     * It's not a slot machine without a lever! Let's create one.
+     */
     _createLever: function () {
       var self = this;
       var $slotMain = this.element.find('.slot-main');
-      var $lever = $('<div class="slot-lever"></div>');
-      var $leverTrack = $('<div class="slot-lever-track"></div>');
-      $slotMain.prepend($lever).prepend($leverTrack);
 
-      $lever.draggable({
-        axis: 'y',
-        containment: $slotMain,
-        revert: true,
+      // Create the lever handler
+      this.$lever = $('<div class="slot-lever"></div>');
+
+      // Create the level track
+      this.$leverTrack = $('<div class="slot-lever-track"></div>');
+
+      // Add them to our slot machine!
+      $slotMain.prepend(this.$lever).prepend(this.$leverTrack);
+
+      var leverHeight = this.$lever.height();
+
+      // Make it draggable
+      this.$lever.draggable({
+        axis: 'y', // Only allow vertical dragging
+        containment: $slotMain, // No dragging outside of our slot machine!
+        revert: true, // Go back to initial position after drag
         stop: function (event, ui) {
-          $lever.css({
-            left: '',
-            top: ''
-          });
+          // Remove the added styles from dragging so it defaults back to
+          // our css. This allows the position to stay responsive when
+          // resizing the slot machine
+          self.$lever.css({left: '', top: ''});
 
-          if ($slotMain.height() - ui.position.top < 50) {
+          // Percentage of lever pulled
+          var leverPct = ui.position.top / ($slotMain.height() - leverHeight);
+
+          // Spin only if the distance is within the threshold
+          if (leverPct >= self.options.leverThreshold) {
             self.spin();
           }
         }
@@ -90,61 +102,118 @@
      */
     _appendExtraSlots: function () {
       var self = this;
-      this.element.find('.slot-bar').each(function () {
+      this.extraSlots = [];
+
+      this.$slotReel.each(function () {
+        var duplicateSlots;
         var $this = $(this);
+
+        // Add slots depending on how many slots can be shown at once
         for (var i=1; i<= self.options.numSlotsToShow; i=i*2) {
-          $this.append($this.children().clone());
+          // Save the cloned slots so we can destroy them later
+          duplicateSlots = $this.children().clone();
+          self.extraSlots.push.apply(self.extraSlots, duplicateSlots);
+
+          // Add cloned slots
+          $this.append(duplicateSlots);
         }
+
+        // Align the last slot on the bottom
         $this.css('bottom', 0);
       });
     },
 
-    spin: function () {
-      var $slotBars = this.element.find('.slot-bar');
-      var self = this;
+    /**
+     * Add styles to reels/slots so they will be responsive.
+     */
+    _makeResponsive: function () {
+      // Add width % so all the reels will have the same width
+      this.$slotReel.css('width', 100/this.numReels + '%');
 
-      $slotBars.each(function (index) {
-        var $currentSlot = $(this);
-        var slotSize = $currentSlot.height()/self.options.numSlotsToShow;
-        var animateFn = function (ease, count, duration, numRounds, goal) {
-          $currentSlot.animate({
-            bottom: goal || Math.floor(slotSize*self.numRows)
-          }, {
-            easing: ease || 'linear',
-            duration: duration || self.options.spinSpeed,
-            complete: function () {
-              if (count > numRounds) {
-                // We're done
-                return;
-              }
+      // Set the height of each slot
+      var slotHeightPct = 100/this.options.numSlotsToShow + '%';
+      this.element.find('.slot-box').css('height', slotHeightPct);
+    },
 
-              // Completed a cycle, reset it back to 0
-              $(this).css('bottom', 0);
+    /**
+     * During the last round of the spin, we need to randomize the
+     * slot that the reel will stop in.
+     * @param  {[number]} numRows number of rows
+     * @param  {[number]} slotSize height of a slot
+     * @return {[number]} the 'bottom' postion of the reel
+     */
+    _getRandomSlot: function (numRows, slotSize) {
+      var randomSlot = Math.floor(Math.random() * numRows);
+      var stopPoint = Math.floor(randomSlot * slotSize);
+      return stopPoint;
+    },
 
-              if (count === numRounds) {
-                // Last round, randomize the stopping point!
-                var randomSlot = Math.floor(Math.random() * self.numRows);
-                var stopPoint = Math.floor(randomSlot * slotSize);
-                console.log(stopPoint);
-                animateFn('easeOutBounce', count + 1, 1000, numRounds, stopPoint);
-              } else {
-                // Continue for another round
-                animateFn(null, count + 1, null, numRounds);
-              }
-            }
-          });
-        };
+    /**
+     * Animate the spinning by moving the reel up/down.
+     * @param  {$object} self this
+     * @param  {$object} $reel the reel to spin
+     * @param  {[number]} slotSize  height of a slot
+     * @param  {[number]} lastSlot 'bottom' position of the reel of the last slot
+     * @param  {[number]} count current round
+     * @param  {[number]} numRounds number of rounds to spin
+     */
+    _spinAnimation: function (self, $reel, slotSize, lastSlot, count, numRounds) {
+      var isLastSpin = count >= numRounds;
+      $reel.animate({
+        bottom: isLastSpin? self._getRandomSlot(self.numRows, slotSize) : lastSlot
+      }, {
+        easing: isLastSpin? 'easeOutBounce' : 'linear',
+        duration: isLastSpin? self.options.easeOutSpeed : self.options.spinSpeed,
+        complete: function () {
+          if (!isLastSpin) {
+            // Completed a cycle, reset it back to 0
+            $(this).css('bottom', 0);
 
-        animateFn(null, 0, null, (index * self.options.slotDifferenceFactor) + self.options.minRounds);
+            // Continue for another round
+            self._spinAnimation(self, $reel, slotSize, lastSlot, count + 1, numRounds);
+          }
+        }
       });
     },
 
     /**
-     * Done playing? Okay, let's destroy it!
+     * Start the slot machine!
+     */
+    spin: function () {
+      var self = this;
+
+      // Calculate the height of a slot
+      var slotSize = this.$slotReel.eq(0).height() / self.options.numSlotsToShow;
+      var lastSlot = Math.floor(slotSize * self.numRows);
+
+      this.$slotReel.each(function (index) {
+        // Number of rounds before the reel should stop. We need to ensure that
+        // the first reel will finish before the next reel and so on.
+        var numRounds = (index * self.options.slotDifferenceFactor) + self.options.minRounds;
+
+        // Spin each reel
+        self._spinAnimation(self, $(this), slotSize, lastSlot, 0, numRounds);
+      });
+    },
+
+    /**
+     * Remove everything that was added
      */
     destroy: function () {
-      // TODO: clean up!
-      console.log('destroyed');
+      // Remove shaders
+      if (this.options.hasShaders) {
+        this.$topShader.remove();
+        this.$bottomShader.remove();
+      }
+
+      // Remove lever
+      this.$lever.remove();
+      this.$leverTrack.remove();
+      
+      // Remove cloned slots
+      $.each(this.extraSlots, function (index, $slot) {
+        $slot.remove();
+      });
     }
   });
 
