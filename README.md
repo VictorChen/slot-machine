@@ -1,5 +1,9 @@
 # Slot Machine jQuery Widget
 
+## DEMO
+
+http://chenvic.com/slotmachine
+
 ## Dependencies
 
 - jQuery
@@ -49,7 +53,7 @@ $('#simple').slotMachine();
 
 Then, simply style the `slot-box` any way you want (change the color, use an image...etc). You can have as many `slot-reel` as you want and each reel can have as many `slot-box` as you'd like. However, each `slot-reel` must have the same number of slots.
 
-## Options
+## Constructor Options
 
 - `numSlotsToShow` (3): The number of slots to show at once.
 
@@ -64,3 +68,17 @@ Then, simply style the `slot-box` any way you want (change the color, use an ima
 - `hasShaders` (true): Whether or not to show the top/bottom shaders to hide all but the current row.
 
 - `leverThreshold` (0.7): How far the lever must be pulled to start the slot machine. Range from 0.0 - 1.0 (percentage).
+
+## Methods
+
+- `$mySlot.slotMachine('spin')`: Triggers the spin
+
+- `$mySlot.slotMachine('destroy')`: Destroys the widget
+
+## Events
+
+- `slotmachine:spin`: triggers before the slot machine starts to spin
+
+- `slotmachine:lose`: triggers when you lose. First argument is the `event` and second is the `results` array of slot indexes.
+
+- `slotmachine:win`: triggers when you win. First argument is the `event` and second is the slot item index.
