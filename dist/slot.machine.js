@@ -147,14 +147,14 @@
       var randomSlot = Math.floor(Math.random() * self.numRows);
 
       // Calculate the position of the index in terms of pixels
-      var stopPoint = Math.floor(randomSlot * slotSize);
+      var stopPoint = Math.round(randomSlot * slotSize);
 
       // Go forward one round
-      stopPoint += Math.floor(slotSize * self.numRows);
+      stopPoint += Math.round(slotSize * self.numRows);
 
       // Amount of slots to rotate back.
-      var offset = Math.floor(self.options.numSlotsToShow / 2);
-      stopPoint -= offset * slotSize;
+      var offset = Math.round(self.options.numSlotsToShow / 2);
+      stopPoint -= Math.round(offset * slotSize);
 
       return {
         index: randomSlot,
