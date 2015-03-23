@@ -4,7 +4,7 @@
     "name": "Victor Chen",
     "email": "chen_victor@ymail.com"
   },
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "jQuery plugin for creating slot machines.",
   "dependencies": {},
   "devDependencies": {

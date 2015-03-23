@@ -1,6 +1,6 @@
 {
   "name": "slot-machine",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "homepage": "https://github.com/VictorChen/slot-machine",
   "description": "jQuery plugin for creating slot machines.",
   "main": "slot.machine.js",
