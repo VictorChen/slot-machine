@@ -3,10 +3,7 @@ body {
   margin: 0 auto;
   background-color: black;
   color: white;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-image: url("img/black-pattern.png");
 }
 
 .win-coffee, .win-tea, .win-espresso, .lose {
