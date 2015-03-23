@@ -2,6 +2,8 @@
   'use strict';
 
   $.widget('custom.slotMachine', {
+    // Prefix triggered events with this value
+    widgetEventPrefix: 'slotmachine:',
 
     // Default options
     options: {
@@ -202,7 +204,7 @@
       var self = this;
 
       // Fire an event before starting
-      this._trigger(':spin');
+      this._trigger('spin');
 
       // Calculate the height of a slot
       var slotSize = this.$slotReel.eq(0).height() / self.options.numSlotsToShow;
@@ -237,13 +239,13 @@
         if (arguments[i] !== arguments[0]) {
           // Convert arguments into an actual array
           // Trigger the lose event
-          this._trigger(':lose', null, [$.makeArray(arguments)]);
+          this._trigger('lose', null, [$.makeArray(arguments)]);
           return;
         }
       }
 
       // Trigger the win event with the slot index
-      this._trigger(':win', null, [arguments[0]]);
+      this._trigger('win', null, [arguments[0]]);
     },
 
     /**
