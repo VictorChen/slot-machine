@@ -59,7 +59,12 @@
   background-image: radial-gradient(circle farthest-corner at center, #FF3C3C 0%, #910000 100%);
 }
 .slot-machine .slot-lever:hover {
-  cursor: move;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+.slot-machine .slot-lever.ui-draggable-dragging {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
 }
 
 .slot-machine .slot-lever-track:before {

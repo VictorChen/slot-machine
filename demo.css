@@ -9,16 +9,31 @@ body {
   background-size: cover;
 }
 
-body.win-coffee {
-  background: url(img/win-coffee.jpg) no-repeat center center fixed;
+.win-coffee, .win-tea, .win-espresso, .lose {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
-body.win-tea {
-  background: url(img/win-tea.jpg) no-repeat center center fixed;
+.win-coffee {
+  background-image: url(img/win-coffee.jpg);
 }
 
-body.win-espresso {
-  background: url(img/win-espresso.jpg) no-repeat center center fixed;
+.win-tea {
+  background-image: url(img/win-tea.jpg);
+}
+
+.win-espresso {
+  background-image: url(img/win-espresso.jpg);
+}
+
+.slot-machine .lose {
+  background-image: url(img/lose.jpg);
 }
 
 h1 { text-align: center;  }

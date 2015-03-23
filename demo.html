@@ -29,10 +29,6 @@
     .color4 { background-color: green; }
     .color5 { background-color: blue; }
     .color6 { background-color: purple; }
-
-    .win-coffee { background-image: url(img/win-coffee.jpg); }
-    .win-tea { background-image: url(img/win-tea.jpg); }
-    .win-espresso { background-image: url(img/win-espresso.jpg); }
   </style>
 </head>
 
@@ -265,24 +261,24 @@
       });
 
       $('.slot-machine').on('slotmachine:spin', function () {
-        $('body').removeClass('win-coffee win-tea win-espresso');
+        $(this).find('.lose, .win-coffee, .win-tea, .win-espresso').remove();
       });
 
       $('.slot-machine').on('slotmachine:lose', function () {
-        $(this).effect('shake');
+        $(this).find('.slot-reels').append('<div class="lose"></div>');
       });
 
       $('.slot-machine').on('slotmachine:win', function (event, slotIndex) {
         switch (slotIndex % 3) {
           case 0:
-              $('body').addClass('win-coffee');
-              break;
+            $(this).find('.slot-reels').append('<div class="win-coffee"></div>');
+            break;
           case 1:
-              $('body').addClass('win-tea');
-              break;
+            $(this).find('.slot-reels').append('<div class="win-tea"></div>');
+            break;
           default:
-              $('body').addClass('win-espresso');
-              break;
+            $(this).find('.slot-reels').append('<div class="win-espresso"></div>');
+            break;
         }
       });
     });

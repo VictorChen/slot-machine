@@ -153,7 +153,7 @@
       stopPoint += Math.round(slotSize * self.numRows);
 
       // Amount of slots to rotate back.
-      var offset = Math.round(self.options.numSlotsToShow / 2);
+      var offset = Math.floor(self.options.numSlotsToShow / 2);
       stopPoint -= Math.round(offset * slotSize);
 
       return {

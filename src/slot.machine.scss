@@ -67,7 +67,12 @@ $leverOuterColor: #910000;
   border-radius: 100%;
   background-color: $mainColor4;
   &:hover {
-    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+  }
+  &.ui-draggable-dragging {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
   }
   background-image: -ms-radial-gradient(center, circle farthest-corner, $leverCenterColor 0%, $leverOuterColor 100%);
   background-image: -moz-radial-gradient(center, circle farthest-corner, $leverCenterColor 0%, $leverOuterColor 100%);
