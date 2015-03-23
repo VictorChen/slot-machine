@@ -3,7 +3,7 @@ body {
   margin: 0 auto;
   background-color: black;
   color: white;
-  background-image: url("img/black-pattern.png");
+  background-image: url(img/black-pattern.png);
 }
 
 .win-coffee, .win-tea, .win-espresso, .lose {
