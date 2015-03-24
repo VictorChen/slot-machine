@@ -206,6 +206,9 @@
       // Fire an event before starting
       this._trigger('spin');
 
+      // Prevent lever from being pulled until the spin is done
+      this.$lever.draggable('disable');
+
       // Calculate the height of a slot
       var slotSize = this.$slotReel.eq(0).height() / self.options.numSlotsToShow;
       var lastSlot = Math.floor(slotSize * self.numRows);
@@ -227,14 +230,19 @@
       });
 
       // All done!
-      $.when.apply($, spinPromises).done(self._processResults.bind(self));
+      $.when.apply($, spinPromises).done(function (/*itemIndex1, itemIndex2, ... */) {
+        self.$lever.draggable('enable');
+        self._processResults.apply(self, arguments);
+      });
     },
 
     /**
      * Determine whether or not the slots line up. Trigger win/lose
      * events depending on the result.
+     * @param  {number} the slot index of a reel
+     * ...
      */
-    _processResults: function () {
+    _processResults: function (/*itemIndex1, itemIndex2, ... */) {
       for (var i=1; i<arguments.length; i++) {
         if (arguments[i] !== arguments[0]) {
           // Convert arguments into an actual array

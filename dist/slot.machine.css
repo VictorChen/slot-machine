@@ -66,6 +66,9 @@
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
 }
+.slot-machine .slot-lever.ui-draggable-disabled {
+  cursor: no-drop;
+}
 
 .slot-machine .slot-lever-track:before {
   content: '';
