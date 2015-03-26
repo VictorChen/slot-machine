@@ -15,6 +15,20 @@ http://chenvic.com/slotmachine
 bower install slot-machine
 ```
 
+Include jQuery and jQuery UI to your page:
+
+```
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+```
+
+Include slot machine js/css:
+
+```
+<link rel="stylesheet" type="text/css" href="slot.machine.css">
+<script src="slot.machine.js"></script>
+```
+
 ## Getting Started
 
 html:
